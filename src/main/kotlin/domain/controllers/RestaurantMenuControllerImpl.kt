@@ -101,33 +101,28 @@ class RestaurantMenuControllerImpl(
     }
 
     override fun getAllMenuEntries(): OutputModel {
-        return OutputModel(
-            menuDao.getAllEntries()
-                .joinToString(separator = "\n\t", prefix = "Menu entries:\n\t") { entry ->
-                    "${entry.dish}; Remaining dishes: ${entry.remainingNumber}"
-                }
-        )
+        val menuEntries = menuDao.getAllEntries()
+        return OutputModel(formatDishList(menuEntries))
     }
 
     override fun getAvailableDishes(): OutputModel {
-        val menuEntries = menuDao.getAllEntries()
+        val menuEntries = menuDao.getAllEntries().filter { it.remainingNumber > 0 }
         if (menuEntries.isEmpty())
             return createFailureResponse("No dishes available.")
+        return OutputModel(formatDishList(menuEntries))
+    }
 
+    private fun formatDishList(menuEntries: List<MenuEntryEntity>) : String {
         val longestNameLength = menuEntries.maxOf { it.dish.name.length }
         val longestDishPrice = menuEntries.maxOf { it.dish.price }.toString().length
         val longestCookingTime = menuEntries.maxOf { it.dish.cookingTimeInSeconds }.toString().length
-
-        return OutputModel(
-            menuEntries
-                .filter { entry -> entry.remainingNumber > 0 }
-                .joinToString(separator = "\n\t", prefix = "Menu entries:\n\t") { entry ->
-                    "Name: ${entry.dish.name}".padEnd(longestNameLength + 10) +
-                            "Price: ${entry.dish.price}".padEnd(longestDishPrice + 11) +
-                            "Cooking time ${entry.dish.cookingTimeInSeconds}".padEnd(longestCookingTime + 18) +
-                            "Remaining dishes: ${entry.remainingNumber}"
-                }
-        )
+        return menuEntries
+            .joinToString(separator = "\n\t", prefix = "Menu entries:\n\t") { entry ->
+                "Name: ${entry.dish.name}".padEnd(longestNameLength + 10) +
+                        "Price: ${entry.dish.price}".padEnd(longestDishPrice + 11) +
+                        "Cooking time ${entry.dish.cookingTimeInSeconds}".padEnd(longestCookingTime + 18) +
+                        "Remaining dishes: ${entry.remainingNumber}"
+            }
     }
 
     private fun getNewDish(): Pair<OutputModel, DishEntity?> {

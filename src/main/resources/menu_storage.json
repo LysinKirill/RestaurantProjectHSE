@@ -1,34 +1,42 @@
 [
     {
         "dish": {
-            "name": "Pizza",
-            "price": 650.0,
-            "cookingTimeInSeconds": 50
+            "name": "Steak",
+            "price": 800.0,
+            "cookingTimeInSeconds": 125
         },
-        "remainingNumber": 14
+        "remainingNumber": 7
     },
     {
         "dish": {
             "name": "Hamburger",
-            "price": 150.0,
-            "cookingTimeInSeconds": 35
+            "price": 250.0,
+            "cookingTimeInSeconds": 40
         },
-        "remainingNumber": 40
+        "remainingNumber": 19
+    },
+    {
+        "dish": {
+            "name": "Pasta",
+            "price": 599.5,
+            "cookingTimeInSeconds": 56
+        },
+        "remainingNumber": 9
+    },
+    {
+        "dish": {
+            "name": "Pizza",
+            "price": 650.0,
+            "cookingTimeInSeconds": 100
+        },
+        "remainingNumber": 24
     },
     {
         "dish": {
             "name": "Juice",
             "price": 50.0,
-            "cookingTimeInSeconds": 10
+            "cookingTimeInSeconds": 15
         },
-        "remainingNumber": 16
-    },
-    {
-        "dish": {
-            "name": "Fries",
-            "price": 89.99,
-            "cookingTimeInSeconds": 20
-        },
-        "remainingNumber": 18
+        "remainingNumber": 33
     }
 ]
