@@ -6,12 +6,13 @@ import data.entity.AccountEntity
 import data.entity.DishEntity
 import data.entity.OrderEntity
 import data.entity.OrderStatus
+import domain.CookingStrategy
 import domain.InputManager
+import domain.SleepCookingStrategy
 import domain.services.interfaces.OrderProcessingSystem
 import domain.services.interfaces.OrderScheduler
 import domain.services.interfaces.PaymentService
 import java.time.LocalDateTime
-import java.time.ZoneOffset
 import kotlin.concurrent.thread
 import kotlin.math.max
 
@@ -22,6 +23,7 @@ class MultiThreadedOrderSystem(
     private val inputManager: InputManager,
     private val orderScheduler: OrderScheduler,
     private val maxSimultaneousOrders: Int,
+    private val cookingStrategy: CookingStrategy = SleepCookingStrategy(),
 ) : OrderProcessingSystem {
 
     private val simultaneousOrdersLock = Any()
@@ -105,6 +107,8 @@ class MultiThreadedOrderSystem(
             println("Order with ID = $orderId is not being cooked.")
             return
         }
+
+        // Show menu to user
 
         inputManager.showPrompt("Enter the name of the dish to be added to your order: ")
         val dishName = inputManager.getString()
@@ -272,13 +276,7 @@ class MultiThreadedOrderSystem(
             try {
                 orderDao.updateOrder(order.copy(status = OrderStatus.Cooking))
 
-                val startTimeInstant = LocalDateTime.now().toInstant(ZoneOffset.UTC)
-                val finishTimeInstant = order.finishTime.toInstant(ZoneOffset.UTC)
-                val cookingTime: java.time.Duration = java.time.Duration.between(startTimeInstant, finishTimeInstant)
-                    ?: return@thread
-
-                // Cooking order
-                Thread.sleep(cookingTime.toMillis())
+                cookingStrategy.cookOrder(order)
 
                 orderDao.updateOrder(order.copy(status = OrderStatus.Ready))
                 println("Order with ID = ${order.id} is ready and can be paid for!")
