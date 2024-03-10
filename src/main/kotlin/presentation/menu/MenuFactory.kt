@@ -17,7 +17,8 @@ class MenuFactory {
             AccountType.Administrator -> AdminMenu(
                 menuModificationMenu = getMenuModificationMenu(),
                 statisticsMenu = getStatisticsMenu(),
-                userAccount = account
+                userAccount = account,
+                authenticationController = DI.authenticationController,
             )
 
             AccountType.Visitor -> VisitorMenu(
@@ -28,6 +29,8 @@ class MenuFactory {
     }
 
     private fun getReviewMenu(account: AccountEntity) = ReviewMenu(
+        orderDao = DI.orderDao,
+        reviewController = DI.reviewController,
         account = account,
     )
 
@@ -36,6 +39,6 @@ class MenuFactory {
         userAccount = account,
     )
 
-    private fun getStatisticsMenu() = StatisticsMenu()
-    private fun getMenuModificationMenu() = MenuModificationMenu()
+    private fun getStatisticsMenu() = StatisticsMenu(DI.statisticsController)
+    private fun getMenuModificationMenu() = MenuModificationMenu(DI.menuController)
 }

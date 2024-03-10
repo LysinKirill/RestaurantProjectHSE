@@ -2,6 +2,7 @@ package presentation.menu
 
 import data.entity.AccountEntity
 import data.entity.AccountType
+import domain.controllers.interfaces.AuthenticationController
 import presentation.menu.interfaces.DisplayStrategy
 import presentation.menu.interfaces.Menu
 import presentation.menu.interfaces.RequestOptionStrategy
@@ -9,6 +10,7 @@ import presentation.menu.options.AdminMenuOption
 
 
 class AdminMenu(
+    private val authenticationController: AuthenticationController,
     private val menuModificationMenu: Menu,
     private val statisticsMenu: Menu,
     private val userAccount: AccountEntity,
@@ -29,7 +31,9 @@ class AdminMenu(
             displayMenu()
             when (requestStrategy.requestOption()) {
 
-                AdminMenuOption.AddNewAdminAccount -> TODO()
+                AdminMenuOption.AddNewAdminAccount -> println(
+                    authenticationController.registerAdminAccount(queryingAccount = userAccount).first
+                )
 
                 AdminMenuOption.OpenMenuModificationMenu -> menuModificationMenu.handleInteractions()
                 AdminMenuOption.OpenStatisticsMenu -> statisticsMenu.handleInteractions()

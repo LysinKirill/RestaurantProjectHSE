@@ -1,11 +1,13 @@
 package presentation.menu
 
+import domain.controllers.interfaces.StatisticsController
 import presentation.menu.interfaces.DisplayStrategy
 import presentation.menu.interfaces.Menu
 import presentation.menu.interfaces.RequestOptionStrategy
 import presentation.menu.options.StatisticsMenuOption
 
 class StatisticsMenu(
+    private val statisticsController: StatisticsController,
     private val displayStrategy: DisplayStrategy = DefaultDisplayStrategy(StatisticsMenuOption::class.java),
     private val requestStrategy: RequestOptionStrategy<StatisticsMenuOption> = ConsoleRequestOptionStrategy(
         StatisticsMenuOption::class.java
@@ -20,11 +22,11 @@ class StatisticsMenu(
             displayMenu()
             when (requestStrategy.requestOption()) {
                 null -> {}
-                StatisticsMenuOption.Revenue -> TODO()
-                StatisticsMenuOption.PopularDishes -> TODO()
-                StatisticsMenuOption.AverageRatingOfDishes -> TODO()
-                StatisticsMenuOption.NumberOfOrdersOverPeriod -> TODO()
-                StatisticsMenuOption.ShowDishReviews -> TODO()
+                StatisticsMenuOption.Revenue -> println(statisticsController.getRevenue())
+                StatisticsMenuOption.PopularDishes -> println(statisticsController.getPopularDishes())
+                StatisticsMenuOption.AverageRatingOfDishes -> println(statisticsController.getAverageRatingOfDishes())
+                StatisticsMenuOption.NumberOfOrdersOverPeriod -> println(statisticsController.getOrderCountOverPeriod())
+                StatisticsMenuOption.ShowDishReviews -> println(statisticsController.getDishReviews())
                 StatisticsMenuOption.CloseMenu -> {
                     println("Closing statistics menu...")
                     isActive = false

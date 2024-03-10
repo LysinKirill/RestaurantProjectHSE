@@ -8,8 +8,12 @@ import domain.ConsoleInputManager
 import domain.InputManager
 import domain.controllers.AuthenticationControllerImpl
 import domain.controllers.RestaurantMenuControllerImpl
+import domain.controllers.ReviewControllerImpl
+import domain.controllers.StatisticsControllerImpl
 import domain.controllers.interfaces.AuthenticationController
 import domain.controllers.interfaces.RestaurantMenuController
+import domain.controllers.interfaces.ReviewController
+import domain.controllers.interfaces.StatisticsController
 import domain.services.HashVerifier
 import domain.services.interfaces.KeyValueVerifier
 import java.security.MessageDigest
@@ -62,6 +66,12 @@ object DI {
 
     val menuController: RestaurantMenuController
         get() = RestaurantMenuControllerImpl(menuDao, inputManager)
+
+    val statisticsController: StatisticsController
+        get() = StatisticsControllerImpl(statisticsDao, reviewDao, orderDao, inputManager)
+
+    val reviewController: ReviewController
+        get() = ReviewControllerImpl(reviewDao, orderDao, inputManager)
 
 
     // Services
