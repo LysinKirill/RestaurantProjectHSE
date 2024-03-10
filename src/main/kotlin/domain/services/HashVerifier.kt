@@ -1,4 +1,4 @@
-package domain
+package domain.services
 
 import data.dao.interfaces.AccountDao
 import domain.services.interfaces.KeyValueVerifier

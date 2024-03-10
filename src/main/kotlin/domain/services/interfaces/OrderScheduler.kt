@@ -1,4 +1,4 @@
-package domain.services
+package domain.services.interfaces
 
 import data.entity.OrderEntity
 
