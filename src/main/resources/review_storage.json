@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "accountName": "Visitor",
+        "dishName": "Pasta",
+        "text": "Excellent pasta!!!",
+        "rating": 5,
+        "timeStamp": "2024-03-10T14:33:19.9243444"
+    },
+    {
+        "id": 2,
+        "accountName": "Visitor",
+        "dishName": "Hamburger",
+        "text": "Slightly overcooked",
+        "rating": 4,
+        "timeStamp": "2024-03-10T14:34:08.4130734"
+    }
+]

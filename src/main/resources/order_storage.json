@@ -1,0 +1,51 @@
+[
+    {
+        "id": 3,
+        "visitorAccountName": "Visitor",
+        "finishTime": "2024-03-10T14:31:42.414461",
+        "dishes": [
+            {
+                "name": "Juice",
+                "price": 50.0,
+                "cookingTimeInSeconds": 15
+            }
+        ],
+        "status": "Ready"
+    },
+    {
+        "id": 2,
+        "visitorAccountName": "Visitor",
+        "finishTime": "2024-03-10T14:32:12.0173001",
+        "dishes": [
+            {
+                "name": "Juice",
+                "price": 50.0,
+                "cookingTimeInSeconds": 15
+            },
+            {
+                "name": "Pizza",
+                "price": 650.0,
+                "cookingTimeInSeconds": 100
+            }
+        ],
+        "status": "Ready"
+    },
+    {
+        "id": 1,
+        "visitorAccountName": "Visitor",
+        "finishTime": "2024-03-10T14:31:09.2329153",
+        "dishes": [
+            {
+                "name": "Hamburger",
+                "price": 250.0,
+                "cookingTimeInSeconds": 40
+            },
+            {
+                "name": "Pasta",
+                "price": 599.5,
+                "cookingTimeInSeconds": 56
+            }
+        ],
+        "status": "PaidFor"
+    }
+]

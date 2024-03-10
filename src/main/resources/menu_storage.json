@@ -1,0 +1,42 @@
+[
+    {
+        "dish": {
+            "name": "Steak",
+            "price": 800.0,
+            "cookingTimeInSeconds": 125
+        },
+        "remainingNumber": 7
+    },
+    {
+        "dish": {
+            "name": "Hamburger",
+            "price": 250.0,
+            "cookingTimeInSeconds": 40
+        },
+        "remainingNumber": 19
+    },
+    {
+        "dish": {
+            "name": "Pasta",
+            "price": 599.5,
+            "cookingTimeInSeconds": 56
+        },
+        "remainingNumber": 9
+    },
+    {
+        "dish": {
+            "name": "Pizza",
+            "price": 650.0,
+            "cookingTimeInSeconds": 100
+        },
+        "remainingNumber": 24
+    },
+    {
+        "dish": {
+            "name": "Juice",
+            "price": 50.0,
+            "cookingTimeInSeconds": 15
+        },
+        "remainingNumber": 33
+    }
+]
