@@ -15,7 +15,13 @@ import domain.controllers.interfaces.RestaurantMenuController
 import domain.controllers.interfaces.ReviewController
 import domain.controllers.interfaces.StatisticsController
 import domain.services.HashVerifier
+import domain.services.MultiThreadedOrderSystem
+import domain.services.PaymentServiceImpl
+import domain.services.ThreadSafeQueueOrderScheduler
 import domain.services.interfaces.KeyValueVerifier
+import domain.services.interfaces.OrderProcessingSystem
+import domain.services.interfaces.OrderScheduler
+import domain.services.interfaces.PaymentService
 import java.security.MessageDigest
 
 object DI {
@@ -27,7 +33,7 @@ object DI {
     private const val STATISTICS_STORAGE_PATH = "src/main/resources/statistics_storage.json"
     private const val REVIEW_STORAGE_PATH = "src/main/resources/review_storage.json"
 
-
+    private const val SIMULTANEOUS_ORDERS_LIMIT = 5
 
     // Super user
     val superuser: AccountEntity by lazy {
@@ -78,9 +84,27 @@ object DI {
     private val authenticator: KeyValueVerifier<String, String>
         get() = HashVerifier(accountDao, hashFunction)
 
-    val inputManager: InputManager
+    private val inputManager: InputManager
         get() = ConsoleInputManager()
 
+    private val paymentService: PaymentService by lazy {
+        PaymentServiceImpl(statisticsDao, inputManager)
+    }
+
+    private val orderScheduler: OrderScheduler by lazy {
+        ThreadSafeQueueOrderScheduler()
+    }
+
+    val orderSystem: OrderProcessingSystem by lazy {
+        MultiThreadedOrderSystem(
+            menuDao = menuDao,
+            orderDao = orderDao,
+            paymentService = paymentService,
+            inputManager = inputManager,
+            orderScheduler = orderScheduler,
+            maxSimultaneousOrders = SIMULTANEOUS_ORDERS_LIMIT
+        )
+    }
 
     // Auxiliary
     private val hashFunction: (str: String) -> String by lazy {

@@ -2,6 +2,7 @@ package presentation.menu
 
 import data.entity.AccountEntity
 import domain.controllers.interfaces.RestaurantMenuController
+import domain.services.interfaces.OrderProcessingSystem
 import presentation.menu.interfaces.DisplayStrategy
 import presentation.menu.interfaces.Menu
 import presentation.menu.interfaces.RequestOptionStrategy
@@ -11,6 +12,7 @@ import presentation.model.Status
 
 class OrderMenu(
     private val menuController: RestaurantMenuController,
+    private val orderSystem: OrderProcessingSystem,
     private val userAccount: AccountEntity,
     private val displayStrategy: DisplayStrategy = DefaultDisplayStrategy(OrderMenuOption::class.java),
     private val requestStrategy: RequestOptionStrategy<OrderMenuOption> = ConsoleRequestOptionStrategy(OrderMenuOption::class.java),
@@ -31,13 +33,13 @@ class OrderMenu(
                         continue
                     }
                     println()
-                    TODO()
+                    orderSystem.createOrder(userAccount)
                 }
 
-                OrderMenuOption.ShowOrders -> TODO()
-                OrderMenuOption.AddDishToOrder -> TODO()
-                OrderMenuOption.CancelOrder -> TODO()
-                OrderMenuOption.PayForOrder -> TODO()
+                OrderMenuOption.ShowOrders -> orderSystem.showUserOrders(userAccount)
+                OrderMenuOption.AddDishToOrder -> orderSystem.addDishToOrder(userAccount)
+                OrderMenuOption.CancelOrder -> orderSystem.cancelOrder(userAccount)
+                OrderMenuOption.PayForOrder -> orderSystem.payForOrder(userAccount)
                 OrderMenuOption.CloseMenu -> {
                     println("Exiting order menu...")
                     isActive = false
