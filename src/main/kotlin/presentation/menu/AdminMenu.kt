@@ -9,6 +9,8 @@ import presentation.menu.options.AdminMenuOption
 
 
 class AdminMenu(
+    private val menuModificationMenu: Menu,
+    private val statisticsMenu: Menu,
     private val userAccount: AccountEntity,
     private val displayStrategy: DisplayStrategy = DefaultDisplayStrategy(AdminMenuOption::class.java),
     private val requestStrategy: RequestOptionStrategy<AdminMenuOption> = ConsoleRequestOptionStrategy(AdminMenuOption::class.java),
@@ -29,9 +31,8 @@ class AdminMenu(
 
                 AdminMenuOption.AddNewAdminAccount -> TODO()
 
-
-                AdminMenuOption.OpenMenuModificationMenu -> TODO()
-                AdminMenuOption.OpenStatisticsMenu -> TODO()
+                AdminMenuOption.OpenMenuModificationMenu -> menuModificationMenu.handleInteractions()
+                AdminMenuOption.OpenStatisticsMenu -> statisticsMenu.handleInteractions()
                 AdminMenuOption.LogOut -> {
                     println("Logging out...")
                     isActive = false

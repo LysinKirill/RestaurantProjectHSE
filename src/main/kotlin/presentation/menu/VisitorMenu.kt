@@ -6,6 +6,8 @@ import presentation.menu.interfaces.RequestOptionStrategy
 import presentation.menu.options.VisitorMenuOption
 
 class VisitorMenu(
+    private val reviewMenu: ReviewMenu,
+    private val orderMenu: OrderMenu,
     private val displayStrategy: DisplayStrategy = DefaultDisplayStrategy(VisitorMenuOption::class.java),
     private val requestStrategy: RequestOptionStrategy<VisitorMenuOption> = ConsoleRequestOptionStrategy(VisitorMenuOption::class.java),
 ) : Menu {
@@ -17,8 +19,8 @@ class VisitorMenu(
             println("Choose one of the following options.")
             displayMenu()
             when (requestStrategy.requestOption()) {
-                VisitorMenuOption.OpenOrderMenu -> TODO()
-                VisitorMenuOption.OpenReviewMenu -> TODO()
+                VisitorMenuOption.OpenOrderMenu -> orderMenu.handleInteractions()
+                VisitorMenuOption.OpenReviewMenu -> reviewMenu.handleInteractions()
                 VisitorMenuOption.LogOut -> {
                     println("Logging out...")
                     isActive = false

@@ -1,6 +1,7 @@
 package presentation.menu
 
 import data.entity.AccountEntity
+import di.DI
 import presentation.menu.interfaces.DisplayStrategy
 import presentation.menu.interfaces.RequestOptionStrategy
 import presentation.menu.interfaces.ResponsiveMenu
@@ -55,10 +56,12 @@ class AuthenticationMenu(
     }
 
     private fun loginAdmin() {
-        TODO()
+        currentAccount = DI.superuser
+        isActive = false
     }
 
     private fun authorizeWithCode() {
-        TODO()
+        currentAccount = DI.superuser
+        isActive = false
     }
 }
