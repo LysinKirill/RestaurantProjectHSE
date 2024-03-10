@@ -1,5 +1,8 @@
 package data.entity
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class DishEntity(
     val name: String,
     val price: Double,
