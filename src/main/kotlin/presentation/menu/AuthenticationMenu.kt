@@ -43,17 +43,6 @@ class AuthenticationMenu(
         } while (isActive)
     }
 
-
-    private fun registerAdmin() {
-        val response = authenticationController.registerAdminAccount(queryingAccount = currentAccount)
-        println(response.first)
-        if (response.first.status == Status.Success && response.second != null) {
-            currentAccount = response.second
-            isActive = false
-            println("Logged in as administrator: ${response.second?.name}")
-        }
-    }
-
     private fun registerVisitor() {
         val response = authenticationController.registerVisitorAccount()
         println(response.first)
