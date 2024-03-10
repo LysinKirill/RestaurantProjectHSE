@@ -2,12 +2,13 @@ package presentation.menu
 
 import data.entity.AccountEntity
 import data.entity.AccountType
+import di.DI
 import presentation.menu.interfaces.Menu
 import presentation.menu.interfaces.ResponsiveMenu
 
 class MenuFactory {
     fun getAuthenticationMenu(): ResponsiveMenu<AccountEntity> {
-        return AuthenticationMenu()
+        return AuthenticationMenu(DI.authenticationController)
     }
 
 
