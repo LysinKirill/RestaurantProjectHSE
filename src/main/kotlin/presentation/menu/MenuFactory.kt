@@ -32,6 +32,7 @@ class MenuFactory {
     )
 
     private fun getOrderMenu(account: AccountEntity) = OrderMenu(
+        menuController = DI.menuController,
         userAccount = account,
     )
 

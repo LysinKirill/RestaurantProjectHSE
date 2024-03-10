@@ -7,7 +7,9 @@ import data.entity.AccountType
 import domain.ConsoleInputManager
 import domain.InputManager
 import domain.controllers.AuthenticationControllerImpl
+import domain.controllers.RestaurantMenuControllerImpl
 import domain.controllers.interfaces.AuthenticationController
+import domain.controllers.interfaces.RestaurantMenuController
 import domain.services.HashVerifier
 import domain.services.interfaces.KeyValueVerifier
 import java.security.MessageDigest
@@ -57,6 +59,9 @@ object DI {
     // Controllers
     val authenticationController: AuthenticationController
         get() = AuthenticationControllerImpl(accountDao, authenticator, inputManager, hashFunction)
+
+    val menuController: RestaurantMenuController
+        get() = RestaurantMenuControllerImpl(menuDao, inputManager)
 
 
     // Services
